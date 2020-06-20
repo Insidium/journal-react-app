@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const CategorySelection = ({ categories }) => {
 	return (
 		<div>
-			<h1>Categories</h1>
+			<h1>Choose a category for your post:</h1>
 			<ul>
 				{categories.map((item, index) => {
 					return (

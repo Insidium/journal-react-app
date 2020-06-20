@@ -7,7 +7,13 @@ import NotFound from './components/NotFound';
 
 const App = () => {
 	const defaultCategories = ['Travel', 'Politics', 'Sport', 'Other'];
-	const [categories, setCategories] = useState(defaultCategories);
+	const [categories] = useState(defaultCategories);
+	const [entries, setEntries] = useState([]);
+
+	function addEntryToJournal(newEntry) {
+		const updatedEntries = [...entries, newEntry];
+		setEntries(updatedEntries);
+	}
 
 	return (
 		<div>
@@ -20,7 +26,11 @@ const App = () => {
 					</li>
 				</ul>
 				<Switch>
-					<Route exact path='/' component={Home} />
+					<Route
+						exact
+						path='/'
+						render={(props) => <Home {...props} entries={entries} />}
+					/>
 					<Route
 						exact
 						path='/category'
@@ -31,7 +41,13 @@ const App = () => {
 					<Route
 						exact
 						path='/entry/new/:id'
-						render={(props) => <NewEntry {...props} categories={categories} />}
+						render={(props) => (
+							<NewEntry
+								{...props}
+								categories={categories}
+								addEntryToJournal={addEntryToJournal}
+							/>
+						)}
 					/>
 					<Route component={NotFound} />
 				</Switch>
